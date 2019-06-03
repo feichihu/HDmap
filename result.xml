@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Road name = "NanAnDeRoad" id = "NanAnDeRoad_0">
+	<section index = "0">
+		<boundarys>
+			<left>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+			</left>
+			<center>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+			</center>
+			<right>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+			</right>
+		</boundarys>
+		<lane index = "-1" id = "NanAnDeRoad_0_section_0-lane_-1">
+			<successor id="NanAnDeRoad_0_section_1-lane_-1"/>
+			<left>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>	
+			</left>
+			<center>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+			</center>
+			<right>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+			</right>
+		</lane>
+		<lane index = "1">
+			<left>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>	
+			</left>
+			<center>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+			</center>
+			<right>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+			</right>
+		</lane>
+	</section>
+	<section index = "1">
+		<boundarys>
+			<left>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+			</left>
+			<center>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+			</center>
+			<right>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+			</right>
+		</boundarys>
+		<lane index = "-1" id = "NanAnDeRoad_0_section_1-lane_-1">
+			<successor id="NanAnDeRoad_0_section_2-lane_-1"/>
+			<successor id="NanAnDeRoad_0_section_2-lane_-2"/>
+			<left>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>	
+			</left>
+			<center>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+			</center>
+			<right>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+			</right>
+		</lane>
+		<lane index = "1">
+			<left>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>	
+			</left>
+			<center>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+			</center>
+			<right>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+				<point x="-430.686096" z="-1.184861" y="-8.343278"/>
+			</right>
+		</lane>
+	</section>
+</Road>

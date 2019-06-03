@@ -1,0 +1,13 @@
+1.Road标签对应道路，具有name和id属性，id属性唯一，name属性无要求。
+
+2.section标签对应路段分段，index属性表示道路段编号，默认从0开始，下一段 +1。
+
+3.boundary标签对应道路边沿，point标签对应相关坐标点，按照拟合的地形点顺序存储为point,以下同理。如本标签下的point代表本路段boundary的地形点坐标。
+
+4.lane标签对应车道，车道命名规则可查阅opendrive格式说明，index根据命名规则确定，id为 “Road名称_section_sectionindex_-lane_laneindex”。
+
+5.successor对应车道后继，id属性为该车道后继车道的id。left对应车道左边界线，right对应车道右边界线,center对应车道中心线（需要根据两边车道线生成，要求连续且滑）。
+
+
+
+
