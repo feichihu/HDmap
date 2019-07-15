@@ -13,11 +13,12 @@
 #include <pcl/visualization/pcl_visualizer.h>
 #include <pcl/filters/extract_indices.h>
 
-typedef pcl::PointXYZ Point;
+typedef pcl::PointXYZRGBA Point;
+typedef pcl::PointXYZ Point2;
 
 float difference(std::vector<float> &lane1,std::vector<float> &lane2){
-    Point mid1(lane1[0], lane1[1], lane1[2]);
-    Point mid2(lane2[0], lane2[1], lane2[2]);
+    Point2 mid1(lane1[0], lane1[1], lane1[2]);
+    Point2 mid2(lane2[0], lane2[1], lane2[2]);
     float d2 = lane2[3]*mid2.x + lane2[4]*mid2.y + lane2[5]*mid2.z;
     float d1 = lane1[3]*mid1.x + lane1[4]*mid1.y + lane1[5]*mid1.z;
     return ((mid1.x + mid1.y) - (mid2.x + mid2.y));
@@ -42,13 +43,13 @@ void Visualizer(std::vector<std::vector<float>> &all_lines,
 
     //Calculate a rough begin point and end point. As dir_z is too small, we estimate it into a 2d line with dir_z = 0.
     for(int i = 0; i < all_lines.size(); i++){
-    Point mid(all_lines[i][0], all_lines[i][1], all_lines[i][2]);
+    Point2 mid(all_lines[i][0], all_lines[i][1], all_lines[i][2]);
     float dir_x = all_lines[i][3];
     float dir_y = all_lines[i][4];
     float x_y = dir_x/dir_y;
     double angle = atan(x_y);
-    Point begin(mid.x-distance*sin(angle), mid.y-distance*cos(angle), mid.z);
-    Point end(mid.x+distance*sin(angle), mid.y+distance*cos(angle), mid.z);
+    Point2 begin(mid.x-distance*sin(angle), mid.y-distance*cos(angle), mid.z);
+    Point2 end(mid.x+distance*sin(angle), mid.y+distance*cos(angle), mid.z);
 
     double r = 0, g = 0, b = 0;
     if(color == 'r')r = 255;
@@ -83,7 +84,7 @@ int
 main (int argc, char** argv)
 {
   pcl::PCLPointCloud2::Ptr cloud_blob (new pcl::PCLPointCloud2), cloud_filtered_blob (new pcl::PCLPointCloud2);
-  pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_filtered (new pcl::PointCloud<pcl::PointXYZ>), cloud_p (new pcl::PointCloud<pcl::PointXYZ>), cloud_f (new pcl::PointCloud<pcl::PointXYZ>);
+  pcl::PointCloud<Point>::Ptr cloud_filtered (new pcl::PointCloud<Point>), cloud_p (new pcl::PointCloud<Point>), cloud_f (new pcl::PointCloud<Point>);
     
     std::string pcd_file;
     pcl::visualization::PCLVisualizer viewer ("Visualize Line");
@@ -118,14 +119,15 @@ main (int argc, char** argv)
 
   // Write the downsampled version to disk
   pcl::PCDWriter writer;
-  writer.write<pcl::PointXYZ> ("map004_ground_downsampled.pcd", *cloud_filtered, false);
+  writer.write<Point> ("map004_ground_downsampled.pcd", *cloud_filtered, false);
 
-  viewer.addPointCloud<Point> (cloud_filtered);
+  viewer.addPointCloud<Point> (cloud_filtered, "cloud");
+  viewer.setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 3,"cloud");
 
   pcl::ModelCoefficients::Ptr coefficients (new pcl::ModelCoefficients ());
   pcl::PointIndices::Ptr inliers (new pcl::PointIndices ());
   // Create the segmentation object
-  pcl::SACSegmentation<pcl::PointXYZ> seg;
+  pcl::SACSegmentation<Point> seg;
   // Optional
   seg.setOptimizeCoefficients (true);
   // Mandatory
@@ -135,8 +137,8 @@ main (int argc, char** argv)
   seg.setDistanceThreshold (0.1);
 
   // Create the filtering object
-  pcl::ExtractIndices<pcl::PointXYZ> extract;
-  pcl::PointCloud<pcl::PointXYZ> merge_all;
+  pcl::ExtractIndices<Point> extract;
+  pcl::PointCloud<Point> merge_all;
 
   int i = 0, nr_points = (int) cloud_filtered->points.size ();
   std::vector<std::vector<float> > all_lines;

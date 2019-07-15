@@ -1,9 +1,11 @@
 #include <pcl/visualization/cloud_viewer.h>
+#include <pcl/visualization/pcl_visualizer.h>
 #include <iostream>
 #include <pcl/io/io.h>
 #include <pcl/io/pcd_io.h>
 
 int user_data;
+typedef pcl::PointXYZRGBA Point;
 
 void
 viewerOneOff (pcl::visualization::PCLVisualizer& viewer)
@@ -43,28 +45,25 @@ main (int argc, char *argv[])
     }
     pcd_file = argv[1];
 
-    pcl::PointCloud<pcl::PointXYZRGBA>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZRGBA>);
-    pcl::io::loadPCDFile (pcd_file, *cloud);
+    pcl::visualization::PCLVisualizer viewer ("Visualize Line");
+    viewer.setSize (800, 600);
 
-    pcl::visualization::CloudViewer viewer("Cloud Viewer");
+    printf ("  loading %s\n", pcd_file.c_str ());
+    pcl::PointCloud<Point>::Ptr cloud (new pcl::PointCloud<Point>);
+    pcl::PCLPointCloud2 cloud2;
 
-    //blocks until the cloud is actually rendered
-    viewer.showCloud(cloud);
 
-    //use the following functions to get access to the underlying more advanced/powerful
-    //PCLVisualizer
+    if (pcl::io::loadPCDFile (pcd_file, cloud2) == -1)
+      throw std::runtime_error ("  PCD file not found.");
 
-    //This will only get called once
-    //viewer.runOnVisualizationThreadOnce (viewerOneOff);
-
-    //This will get called once per visualization iteration
-   //viewer.runOnVisualizationThread (viewerPsycho);
-    while (!viewer.wasStopped ())
-    {
-    //you can also do cool processing here
-    //FIXME: Note that this is running in a separate thread from viewerPsycho
-    //and you should guard against race conditions yourself...
-    //user_data++;
-    }
+   // pcl::PointXYZ p1(-300, -70, 10);
+   // pcl::PointXYZ p2(-200, 0, 10);
+    fromPCLPointCloud2 (cloud2, *cloud);
+  //  pcl::visualization::PointCloudColorHandlerCustom<Point> handler (cloud, 0, 255, 0);
+    viewer.addPointCloud<Point> (cloud);
+    viewer.setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 3);
+    printf ("  %lu points in data set\n", cloud->size ());
+  //  viewer.addLine(p1, p2, 255, 0, 0, "line");
+    viewer.spin();
     return 0;
 }
